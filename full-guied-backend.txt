@@ -22,10 +22,16 @@ now we go to the local guard
 // apps\api\src\auth\auth.controller.ts   @UseGuards(LocalAuthGuard)
 
 
+3- protect apis with jwt
+// now we create jwt tokens
+npm i @nestjs/jwt @nestjs/config
+) apps\api\src\auth\auth.module.ts
+) apps\api\.env
+) apps\api\src\auth\config\jwt.config.ts
+) apps\api\src\auth\auth.controller.ts
+) apps\api\src\auth\auth.service.ts
 
-3- Google auth
-
-4- Protuct apis with jwt
+// no we created the access token, we need to crate a strtegy to protect our routes
 
 5- refresh token
 

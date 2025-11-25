@@ -6,15 +6,21 @@ import {
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { UserService } from 'src/user/user.service';
 import { verify } from 'argon2';
+import { AuthJwtPayload } from './types/auth-jwt.payload';
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
   async registerUser(body: CreateUserDto) {
     const user = await this.userService.findByEmail(body.email);
     if (user) {
       throw new ConflictException('User already exists');
     }
-    return this.userService.create(body);
+    const data = await this.userService.create(body);
+    await this.login(data.id, data.name);
   }
 
   async validateLocalUser(email: string, password: string) {
@@ -29,5 +35,25 @@ export class AuthService {
     }
     const { password: _, ...result } = user;
     return result;
+  }
+
+  async login(userId: number, name?: string) {
+    const { accessToken } = await this.generateJwtToken(userId);
+    return {
+      id: userId,
+      name,
+      accessToken,
+    };
+  }
+
+  async generateJwtToken(userId: number) {
+    const payload: AuthJwtPayload = { sub: userId }; // the payload we would like to include in the token
+
+    const [accessToken] = await Promise.all([
+      // first one to create access token
+      this.jwtService.signAsync(payload),
+    ]);
+
+    return { accessToken };
   }
 }
