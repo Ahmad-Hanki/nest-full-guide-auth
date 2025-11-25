@@ -1,7 +1,18 @@
 1- Sign up a new user
+normal sign up
+) apps\api\src\auth\auth.controller.ts
+) apps\api\src\auth\auth.service.ts
+) apps\api\src\user\user.service.ts
 
 2- Sign in with user name and password
-
+) apps\api\src\auth\auth.controller.ts
+// npm i passport @nestjs/passport passport-local @types/passport-local
+// local strategy only used to sign in => user login (email/password)
+// JWT => protect APIs (like /user/me)
+// Refresh JWT => keep user logged in
+// (Optional) Google/Github
+) apps\api\src\auth\strategies\local-strategy.ts
+) apps\api\src\auth\auth.service.ts
 3- Google auth
 
 4- Protuct apis with jwt
