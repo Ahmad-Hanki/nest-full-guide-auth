@@ -1,0 +1,17 @@
+1- Sign up a new user
+
+2- Sign in with user name and password
+
+3- Google auth
+
+4- Protuct apis with jwt
+
+5- refresh token
+
+6- revoke token => means canceling or invalidating a token, so it can’t be used anymore for login or API access.
+
+7- Role based access control
+
+8- public routes
+
+9- nestjs config
