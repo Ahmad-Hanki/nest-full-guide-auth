@@ -19,7 +19,7 @@ normal sign up
 
 now we go to the local guard
 // apps\api\src\auth\guards\local-auth\local-auth.guard.ts
-// apps\api\src\auth\auth.controller.ts   @UseGuards(LocalStrategy)
+// apps\api\src\auth\auth.controller.ts   @UseGuards(LocalAuthGuard)
 
 
 

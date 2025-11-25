@@ -63,7 +63,7 @@ export async function signIn(
   });
 
   if (response.ok) {
-    const result = await response.json();
+    const result = await response?.json();
     // TODO: Create The Session For Authenticated User.
 
     await createSession({
