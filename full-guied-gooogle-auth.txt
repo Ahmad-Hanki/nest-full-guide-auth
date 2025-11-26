@@ -29,17 +29,3 @@ GOOGLE_CALLBACK_URL=http://localhost:8000/api/auth/google/callback
 ) apps\api\src\auth\auth.module.ts
 ) apps\api\src\auth\guards\google-auth\google-auth.guard.ts
 
-// now we will create googleAuthGarde
-// apps\api\src\auth\guards\google-auth\google-auth.guard.ts
-
-// now go to apps\api\src\auth\auth.module.ts and register the strategy
-// apps\api\src\auth\auth.module.ts
-
-// now we need 2 apis one for the login and one for the callback. we cant do it with graphql we need rest api
-created the controllers
-apps\api\src\auth\auth.controller.ts
-
-then in the api front the rest
-
-now go to the apps\api\src\auth\auth.controller.ts
-and create the verify function

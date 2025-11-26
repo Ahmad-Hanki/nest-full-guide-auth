@@ -62,4 +62,10 @@ export class AuthController {
       `http://localhost:3000/api/auth/google/success?accessToken=${userData.accessToken}&refreshToken=${userData.refreshToken}`, // &role=${userData.role}
     );
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('signout')
+  async logout(@Request() req) {
+    return await this.authService.logout(req.user.id);
+  }
 }

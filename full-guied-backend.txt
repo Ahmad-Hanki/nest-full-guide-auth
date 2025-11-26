@@ -59,7 +59,24 @@ nest g gu auth/guards/jwt-auth
 5- Google 0Auth
 check the other file
 
-6- revoke token => means canceling or invalidating a token, so it can’t be used anymore for login or API access.
+6- revoke token or token invalidation => means canceling or invalidating a token, so it can’t be used anymore for login or API access.
+
+// in login function we hash the refresh token first and store in in the users data
+) apps\api\src\auth\auth.service.ts
+// updateHashedRefreshToken
+) apps\api\src\user\user.service.ts
+
+// now we need to go to the refresh token strategy and inside the validate function we need to extract the refresh token from the body request
+// we gonna compare the hashed token in our db with the body and then 
+// invalidate it inside the validateRefreshToken function
+
+// validateRefreshToken gets the refresh token
+) apps\api\src\auth\auth.service.ts
+// refreshTokens to
+
+// until here we didnt do anything but storing the refresh token in the db
+
+) apps\api\src\auth\auth.controller.ts  @Post('signout')
 
 7- Role based access control
 

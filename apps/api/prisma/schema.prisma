@@ -37,7 +37,7 @@ model User {
   email              String    @unique
   name               String
   password           String
-  hashedRefreshToken String?
+  hashedRefreshToken String? // we hash it and then use it here.
   role               Role      @default(USER)
   comments           Comment[]
   posts              Post[]

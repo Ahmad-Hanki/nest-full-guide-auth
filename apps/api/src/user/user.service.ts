@@ -29,4 +29,14 @@ export class UserService {
     });
     return user;
   }
+
+  async updateHashedRefreshToken(
+    userId: number,
+    hashedRefreshToken: string | null,
+  ) {
+    return await this.prisma.user.update({
+      where: { id: userId },
+      data: { hashedRefreshToken },
+    });
+  }
 }

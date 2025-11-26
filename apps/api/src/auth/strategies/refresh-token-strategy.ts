@@ -6,6 +6,7 @@ import jwtConfig from '../config/jwt.config';
 import { AuthService } from '../auth.service';
 import { type AuthJwtPayload } from '../types/auth-jwt.payload';
 import refreshJwtConfig from '../config/refresh-jwt.config';
+import { Request } from 'express';
 
 @Injectable()
 export class RefreshJwtStrategy extends PassportStrategy(
@@ -28,12 +29,15 @@ export class RefreshJwtStrategy extends PassportStrategy(
       jwtFromRequest: ExtractJwt.fromBodyField('refreshToken'), // i take it from body
       secretOrKey: refreshJwtConfiguration.secret as string,
       ignoreExpiration: false,
+      passReqToCallback: true, // to get req in validate
     });
   }
 
   // when a request comes in with a JWT token, it will call this validate method and send pass the payload
-  async validate(payload: AuthJwtPayload) {
+  async validate(req: Request, payload: AuthJwtPayload) {
+    const refreshToken = req.body.refreshToken; // for the invalidate
+
     const userId = payload.sub;
-    return await this.authService.validateRefreshToken(+userId); // req.user
+    return await this.authService.validateRefreshToken(+userId, refreshToken); // req.user
   }
 }
