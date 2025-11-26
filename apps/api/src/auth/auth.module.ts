@@ -12,6 +12,7 @@ import refreshJwtConfig from './config/refresh-jwt.config';
 import { RefreshJwtStrategy } from './strategies/refresh-token-strategy';
 import googleAuthConfig from './config/google-auth.config';
 import { GoogleStrategy } from './strategies/google-strategy';
+import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     JwtModule.registerAsync(jwtConfig.asProvider()),
@@ -29,6 +30,10 @@ import { GoogleStrategy } from './strategies/google-strategy';
     JwtStrategy,
     RefreshJwtStrategy,
     GoogleStrategy,
+    {
+      provide: APP_GUARD,
+      useClass: JwtStrategy, // global guard if needed
+    },
   ],
 })
 export class AuthModule {}

@@ -10,19 +10,20 @@ import {
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
-import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
 import { RefreshJwtAuthGuard } from './guards/refresh-jwt-auth/refresh-jwt-auth.guard';
 import { GoogleAuthGuard } from './guards/google-auth/google-auth.guard';
+import { Public } from './decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Public()
   @Post('signup')
   async registerUser(@Body() body: CreateUserDto) {
     return await this.authService.registerUser(body);
   }
-
+  @Public()
   @UseGuards(LocalAuthGuard)
   @Post('signin')
   async login(@Request() req) {
@@ -30,7 +31,6 @@ export class AuthController {
     return await this.authService.login(req.user.id, req.user.name);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('protected')
   getProtectedResource(@Request() req) {
     return {
@@ -38,20 +38,20 @@ export class AuthController {
       user: req.user,
     };
   }
-
+  @Public()
   @UseGuards(RefreshJwtAuthGuard)
   @Post('refresh-token')
   async refreshToken(@Request() req) {
     return await this.authService.refreshTokens(req.user.id, req.user.name);
   }
-
+  @Public()
   @UseGuards(GoogleAuthGuard)
   @Get('google')
   async googleLogin(@Request() req) {
     // initiates the Google OAuth2 login flow
     // this will call google/callback
   }
-
+  @Public()
   @Get('google/callback') // same cllback in env
   @UseGuards(GoogleAuthGuard)
   async googleLoginCallback(@Request() req, @Res() res) {
@@ -63,7 +63,6 @@ export class AuthController {
     );
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post('signout')
   async logout(@Request() req) {
     return await this.authService.logout(req.user.id);

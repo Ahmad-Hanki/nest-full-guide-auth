@@ -78,8 +78,11 @@ check the other file
 
 ) apps\api\src\auth\auth.controller.ts  @Post('signout')
 
-7- Role based access control
+7- Global Auth
+meaning by default protect all the routes
+) apps\api\src\auth\auth.module.ts
+) apps\api\src\auth\decorators\public.decorator.ts 
+  @Public()
 
-8- public routes
-
-9- nestjs config
+// change here 
+) apps\api\src\auth\guards\jwt-auth\jwt-auth.guard.ts
