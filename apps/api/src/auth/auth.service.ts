@@ -39,7 +39,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
     const { password: _, ...result } = user;
-    return result;
+    return { id: result.id, name: result.name, role: result.role };
   }
 
   async login(userId: number, name?: string) {
@@ -73,7 +73,7 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Invalid token user');
     }
-    const currentUser = { id: user.id };
+    const currentUser = { id: user.id, role: user.role };
     return currentUser;
   }
 

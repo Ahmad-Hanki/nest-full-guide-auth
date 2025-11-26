@@ -86,3 +86,30 @@ meaning by default protect all the routes
 
 // change here 
 ) apps\api\src\auth\guards\jwt-auth\jwt-auth.guard.ts
+
+8- Role base 
+// 1 add role field in the user module
+
+// 2 defined authorized role for each endpoint
+
+// 3 check if the user is authorized for the role
+
+// in validateLocalUser we pass the role to the req
+) apps\api\src\auth\auth.service.ts
+
+// same in validateJwtUser 
+) apps\api\src\auth\auth.service.ts
+
+// same in validateGoogleUser
+) apps\api\src\auth\auth.service.ts
+
+// create 
+) apps\api\src\auth\decorators\roles.decorator.ts
+
+
+
+// we need a roles guards
+) apps\api\src\auth\guards\roles\roles.guard.ts
+
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)

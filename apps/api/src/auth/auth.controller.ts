@@ -13,6 +13,9 @@ import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 import { RefreshJwtAuthGuard } from './guards/refresh-jwt-auth/refresh-jwt-auth.guard';
 import { GoogleAuthGuard } from './guards/google-auth/google-auth.guard';
 import { Public } from './decorators/public.decorator';
+import { Roles } from './decorators/roles.decorator';
+import { RolesGuard } from './guards/roles/roles.guard';
+import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -31,6 +34,8 @@ export class AuthController {
     return await this.authService.login(req.user.id, req.user.name);
   }
 
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Get('protected')
   getProtectedResource(@Request() req) {
     return {
