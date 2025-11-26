@@ -10,11 +10,14 @@ import jwtConfig from './config/jwt.config';
 import { JwtStrategy } from './strategies/jwt-strategy';
 import refreshJwtConfig from './config/refresh-jwt.config';
 import { RefreshJwtStrategy } from './strategies/refresh-token-strategy';
+import googleAuthConfig from './config/google-auth.config';
+import { GoogleStrategy } from './strategies/google-strategy';
 @Module({
   imports: [
     JwtModule.registerAsync(jwtConfig.asProvider()),
     ConfigModule.forFeature(jwtConfig),
     ConfigModule.forFeature(refreshJwtConfig),
+    ConfigModule.forFeature(googleAuthConfig),
   ],
   controllers: [AuthController],
 
@@ -25,6 +28,7 @@ import { RefreshJwtStrategy } from './strategies/refresh-token-strategy';
     LocalStrategy,
     JwtStrategy,
     RefreshJwtStrategy,
+    GoogleStrategy,
   ],
 })
 export class AuthModule {}

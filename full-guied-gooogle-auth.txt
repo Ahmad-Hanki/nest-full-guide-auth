@@ -1,0 +1,45 @@
+- npm i passport-google-oauth20
+
+- npm i -D @types/passport-google-oauth20
+
+create apps\api\src\auth\strategies\google.strategy.ts
+
+go to google console api
+https://console.cloud.google.com/
+
+create a project
+- APIs & Services
+- Credentials
+- create credentials
+- oAuth client Id
+- web application
+- Authorized JavaScript origins  // the domain which is http://localhost:8000
+- Authorized redirect URIs // after the success => http://localhost:8000/auth/google/callback
+
+in the env 
+file GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_CALLBACK_URL=http://localhost:8000/api/auth/google/callback
+- validateGoogleUser => apps\api\src\auth\auth.service.ts
+
+) apps\api\src\auth\config\google-auth.config.ts 
+) apps\api\src\user\user.module.ts
+) apps\api\src\auth\strategies\google-strategy.ts 
+) apps\api\src\auth\auth.service.ts
+) apps\api\src\auth\auth.module.ts
+) apps\api\src\auth\guards\google-auth\google-auth.guard.ts
+
+// now we will create googleAuthGarde
+// apps\api\src\auth\guards\google-auth\google-auth.guard.ts
+
+// now go to apps\api\src\auth\auth.module.ts and register the strategy
+// apps\api\src\auth\auth.module.ts
+
+// now we need 2 apis one for the login and one for the callback. we cant do it with graphql we need rest api
+created the controllers
+apps\api\src\auth\auth.controller.ts
+
+then in the api front the rest
+
+now go to the apps\api\src\auth\auth.controller.ts
+and create the verify function
