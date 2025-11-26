@@ -10,24 +10,25 @@ import { type AuthJwtPayload } from '../types/auth-jwt.payload';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @Inject(jwtConfig.KEY)
+    private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
     private readonly authService: AuthService,
   ) {
-    const secret = jwtConfiguration.secret;
-
-    if (!secret) {
+    if (!jwtConfiguration.secret) {
       // runtime safety + lets TS know secret is string after this
       throw new Error('JWT secret is not defined in configuration');
     }
 
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: secret as string,
+      secretOrKey: jwtConfiguration.secret as string,
       ignoreExpiration: false,
     });
   }
 
   // when a request comes in with a JWT token, it will call this validate method and send pass the payload
   async validate(payload: AuthJwtPayload) {
+    console.log('Decoded JWT payload:', payload); // ✅ log payload for debugging
+
     const userId = payload.sub;
     return this.authService.validateJwtUser(+userId);
   }
