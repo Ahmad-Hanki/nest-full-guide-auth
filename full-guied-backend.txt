@@ -39,8 +39,13 @@ npm i passport-jwt @types/passport-jwt
 nest g gu auth/guards/jwt-auth
 ) apps\api\src\auth\guards\jwt-auth\jwt-auth.guard.ts
 ) apps\api\src\auth\auth.module.ts
-5- refresh token
 
+
+
+4- refresh token
+) apps\api\.env
+) apps\api\src\auth\config\refresh-jwt.config.ts
+) apps\api\src\auth\auth.service.ts
 6- revoke token => means canceling or invalidating a token, so it can’t be used anymore for login or API access.
 
 7- Role based access control

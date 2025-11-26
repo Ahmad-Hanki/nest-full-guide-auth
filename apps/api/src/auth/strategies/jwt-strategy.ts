@@ -10,7 +10,6 @@ import { type AuthJwtPayload } from '../types/auth-jwt.payload';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @Inject(jwtConfig.KEY)
-    private readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
     private readonly authService: AuthService,
   ) {
     const secret = jwtConfiguration.secret;
@@ -22,7 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: secret, // 👈 now typed as `string`, no more `undefined`
+      secretOrKey: secret as string,
       ignoreExpiration: false,
     });
   }
@@ -30,6 +29,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   // when a request comes in with a JWT token, it will call this validate method and send pass the payload
   async validate(payload: AuthJwtPayload) {
     const userId = payload.sub;
-    return this.authService.validateJwtUser(+userId); 
+    return this.authService.validateJwtUser(+userId);
   }
 }
